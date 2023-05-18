@@ -1,3 +1,49 @@
-#loginNavbar {
-    text-align: right;
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+
+.search {
+    position: relative;
+    width: 600px;
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 80px;
+}
+.search input {
+    width: 100%;
+    border: 3px solid #bbb;
+    border-radius: 15px;
+    padding: 12px 14px;
+    font-size: 18px;
+}
+.search img {
+    position: absolute;
+    width: 25px;
+    top: 13px;
+    right: 20px;
+    margin: 0;
 }
