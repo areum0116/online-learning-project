@@ -19,10 +19,10 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+/* article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
-}
+} */
 
 
 .search {
@@ -31,7 +31,7 @@ footer, header, hgroup, menu, nav, section {
     text-align: center;
     display: block;
     margin: auto;
-    margin-top: 80px;
+    margin-top: 60px;
 }
 .search input {
     width: 100%;
@@ -46,4 +46,14 @@ footer, header, hgroup, menu, nav, section {
     top: 13px;
     right: 20px;
     margin: 0;
+}
+
+#menuNavbar .dropdown-toggle::after {
+    transition: transform 0.15s linear;
+}
+#menuNavbar .show.dropdown .dropdown-toggle::after {
+    transform: translateY(3px);
+}
+#menuNavbar .dropdown-menu {
+    margin-top: 0;
 }
