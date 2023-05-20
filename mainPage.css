@@ -57,3 +57,25 @@ footer, header, hgroup, menu, nav, section {
 #menuNavbar .dropdown-menu {
     margin-top: 0;
 }
+#menuNavbar {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-bottom: 3px solid lightblue;
+}
+#menuNavbar ul li{
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    font-size: 1.1rem;
+}
+
+#mainTable td {
+    padding: 0.1rem;
+}
+
+#level-tab{
+    display: flex;
+    justify-content: end;
+    font-size: 0.5rem;
+}
