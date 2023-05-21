@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" href="myPage.css">
 
     <title>myPage</title>
 </head>
+
 <body>
     <nav id="loginNavbar" class="navbar navbar-light navbar-expand-md">
         <button class="navbar-toggler" data-toggle="collapse" data-target="#loginLinks" aria-label="Toggle navigation">
@@ -31,6 +33,7 @@
         </div>
     </nav>
 
+    <h1 class="h1" id="logo">online Study With Me</h1>
 
     <div class="search">
         <input type="text" placeholder="검색어 입력">
@@ -96,50 +99,65 @@
     </nav>
     <!--  -->
 
-    <!-- 주간 계획 달성 현황
 
-    오늘 학습할 강의
+    <section id="myPageSection">
+        <h2>주간 계획 달성 현황</h2>
+        <table class="table table-bordered" id="weekPlanTable">
+            <thead>
+                <tr>
+                    <th scope="col"><span id="date1"></span></th>
+                    <th scope="col"><span id="date2"></span></th>
+                    <th scope="col"><span id="date3"></span></th>
+                    <th scope="col"><span id="date4"></span></th>
+                    <th scope="col"><span id="date5"></span></th>
+                    <th scope="col"><span id="date6"></span></th>
+                    <th scope="col"><span id="date7"></span></th>
+                    <th scope="col">학습현황</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>0/0</td>
+                </tr>
+            </tbody>
+        </table>
 
-    나의 수강현황
-    -수강중인 강좌
-    -수강완료 강좌
+        <h2>오늘 학습할 강의</h2>
+        <section id="plannedClasses">
+            <div class="list-group" id="plannedClassesList">
+                <a class="list-group-item  active" id="date1" data-toggle="list" href="#date1Content"></a>
+                <a class="list-group-item" id="date2" data-toggle="list" href="#date2Content"></a>
+                <a class="list-group-item" id="date3" data-toggle="list" href="#date3Content"></a>
+                <a class="list-group-item" id="date4" data-toggle="list" href="#date4Content"></a>
+                <a class="list-group-item" id="date5" data-toggle="list" href="#date5Content"></a>
+                <a class="list-group-item" id="date6" data-toggle="list" href="#date6Content"></a>
+                <a class="list-group-item" id="date7" data-toggle="list" href="#date7Content"></a>
+            </div>
+            </div>
+            <div>
+                <div class="tab-content" id="plannedClassesContent">
+                    <div class="tab-pane fade show active" id="date1Content">1</div>
+                    <div class="tab-pane fade" id="date2Content"><img src="playButtonEmoji.png"><span>만점왕 수학 5-1 (2023) 05강) 2.약수와 배수(1)</span></div>
+                    <div class="tab-pane fade" id="date3Content">3</div>
+                    <div class="tab-pane fade" id="date4Content">4</div>
+                    <div class="tab-pane fade" id="date5Content">5</div>
+                    <div class="tab-pane fade" id="date6Content">6</div>
+                    <div class="tab-pane fade" id="date7Content">7</div>
+                </div>
+        </section>
 
-    나의 일정관리 -->
+        <h2>나의 수강현황</h2>
+        수강중인 강좌
 
-    <h2>주간 계획 달성 현황</h2>
-    <table class="table table-bordered" id="weekPlanTable">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col">학습현황</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2>오늘 학습할 강의</h2>
-
-    <h2>나의 수강현황</h2>
-
-    <h2>나의 일정관리</h2>
-
+        <h2>나의 일정관리</h2>
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -153,4 +171,5 @@
 
     <script src="myPage.js"></script>
 </body>
+
 </html>

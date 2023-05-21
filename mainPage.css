@@ -34,7 +34,7 @@ body {
     text-align: center;
     display: block;
     margin: auto;
-    margin-top: 60px;
+    margin-top: 40px;
 }
 .search input {
     width: 100%;
@@ -84,4 +84,15 @@ body {
     display: flex;
     justify-content: end;
     font-size: 0.7rem;
+}
+
+#logo {
+    text-align: center;
+    color:#000000;
+    font-weight: bold;
+    font-size: 50px;
+    background: linear-gradient(to right, #270a09, #8ca6ce);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 20px 0;
 }
