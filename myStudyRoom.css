@@ -72,16 +72,3 @@ body {
     margin-right: 2.5rem;
     font-size: 1.1rem;
 }
-
-#mainTable {
-    margin-top: 10px;
-}
-#mainTable td {
-    padding: 0.1rem;
-}
-
-#level-tab{
-    display: flex;
-    justify-content: end;
-    font-size: 0.7rem;
-}
