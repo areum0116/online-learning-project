@@ -114,6 +114,20 @@ h2 {
     margin: 20px 0;
 }
 
+#myClasses {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1.5rem 0;
+    border-top: 2px solid #c8cbce;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem 0;
+}
+#myClasses div {
+    display: inline;
+}
+#myClasses span {
+    color: blue;
+}
 
 
 
