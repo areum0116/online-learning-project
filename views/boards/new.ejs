@@ -1,0 +1,21 @@
+<% layout('layouts/boilerplate') %>
+<div class="row">
+    <h1>게시글 작성</h1>
+    <div class="col-6 offset-3">
+        <form action="/boards" method="post">
+            <div class="mb-3">
+                <label class='form-label' for="title">제목</label>
+                <input type="text" name="board[title]" id="title" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class='form-label' for="text">내용</label>
+                <textarea class="form-control" type="text" name="board[text]" id="text" rows="10"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-success">작성</button>
+            </div>
+        </form>
+        <a href="/boards">이전</a>
+    </div>
+</div>

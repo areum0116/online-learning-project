@@ -1,0 +1,18 @@
+<% layout('layouts/boilerplate') %>
+
+<h1>모든 게시판</h1>
+<div>
+    <a href="/boards/new">글쓰기</a>
+</div>
+<% for (let board of boards){%>
+<div class="card" mb-3>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><%= board.title %> </h5>
+                <a class="btn btn-primary" href="/boards/<%=board._id%>">읽기</a>
+            </div>
+        </div>
+    </div>
+</div>
+<% }%>
