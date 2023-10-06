@@ -2,14 +2,20 @@
 <div class="row">
     <h1>게시글 작성</h1>
     <div class="col-6 offset-3">
-        <form action="/boards" method="post">
+        <form action="/boards" method="post" novalidate class="validated-form">
             <div class="mb-3">
                 <label class='form-label' for="title">제목</label>
-                <input type="text" name="board[title]" id="title" class="form-control">
+                <input type="text" name="board[title]" id="title" class="form-control" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
             <div class="mb-3">
                 <label class='form-label' for="text">내용</label>
-                <textarea class="form-control" type="text" name="board[text]" id="text" rows="10"></textarea>
+                <textarea class="form-control" type="text" name="board[text]" id="text" rows="10" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
 
             <div class="mb-3">

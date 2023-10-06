@@ -3,15 +3,25 @@
 <div class="row">
     <h1 class="text-center">게시글 수정</h1>
     <div class="col-6 offset-3">
-        <form action="/boards/<%=board._id%>?_method=PUT" method="post">
+        <form action="/boards/<%=board._id%>?_method=PUT" method="post" novalidate class="validated-form">
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
-                <input type="text" name="board[title]" id="title" class="form-control" value="<%= board.title %>">
+                <input type="text" name="board[title]" id="title" class="form-control" value="<%= board.title %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
             <div class="mb-3">
                 <label for="text" class="form-label">내용</label>
-                <textarea type="text" name="board[text]" id="text" class="form-control" value="<%= board.text %>">
+                <textarea type="text" name="board[text]" id="text" rows="10" class="form-control" required><%= board.text %></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-info">수정하기</button>
             </div>
         </form>
+        <a href="/boards/<%= board._id %>">이전</a>
     </div>
 </div>
