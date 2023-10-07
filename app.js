@@ -3,11 +3,11 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
-const { boardSchema } = require('./schemas.js');
-const Lecture = require('./models/lecture');
-const Board = require('./models/board');
-const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
+const session = require('express-session');
+const flash = require('connect-flash');
+
+const boards = require('./routes/boards');
 
 mongoose.connect('mongodb://127.0.0.1:27017/online-learning');
 
@@ -25,58 +25,32 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')))
 
-const validateBoard = (req, res, next) => {
-    const { error } = boardSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req ,res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
+app.use('/boards', boards);
 
 app.get('/', (req, res) => {
     res.render('home');
 });
-
-app.get('/boards', catchAsync(async (req, res) => {
-    const boards = await Board.find({});
-    res.render('boards/index', { boards });
-}));
-
-app.get('/boards/new', (req, res) => {
-    res.render('boards/new');
-});
-
-app.post('/boards', catchAsync(async (req, res, next) => {
-    if (!req.body.board) throw new ExpressError('Invalid Board Data', 400);
-    const board = new Board(req.body.board);
-    await board.save();
-    res.redirect(`/boards/${board._id}`);
-}));
-
-app.get('/boards/:id', catchAsync(async (req, res) => {
-    const board = await Board.findById(req.params.id);
-    res.render('boards/show', { board });
-}));
-
-app.get('/boards/:id/edit', catchAsync(async (req, res) => {
-    const board = await Board.findById(req.params.id);
-    res.render('boards/edit', { board });
-}));
-
-app.put('/boards/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const board = await Board.findByIdAndUpdate(id, { ...req.body.board });
-    res.redirect(`/boards/${board._id}`);
-}));
-
-app.delete('/boards/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Board.findByIdAndDelete(id);
-    res.redirect('/boards');
-}));
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));
