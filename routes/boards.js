@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
-const { boardSchema } = require('./schemas.js');
+const { boardSchema } = require('../schemas.js');
 
 const ExpressError = require('../utils/ExpressError');
 const Board = require('../models/board');
