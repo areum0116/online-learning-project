@@ -23,4 +23,34 @@
             </div>
         </div>
     </div>
+    <div class="col-6">
+        <div id="map"></div>
+
+        <% if(currentUser){ %>
+            <!-- <h2>댓글</h2> -->
+            <form action="/boards/<%= board._id %>/comments" method="POST" class="mb-3 validated-form" novalidate>
+                <div class="mb-3">
+                    <label for="body" class="form-label">댓글</label>
+                    <textarea name="comment[body]" id="body" cols="30" rows="3" class="form-control" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button class="btn btn-success">등록</button>
+            </form>
+        <% } %>
+        <% for(let comment of board.comments) { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><%= comment.author.username %></h5>
+                    <p class="card-text"><%= comment.body %></p>
+                    <% if(currentUser && comment.author.equals(currentUser._id)) { %>
+                        <form action="/boards/<%= board._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-sm btn-danger">삭제</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+    </div>
 </div>

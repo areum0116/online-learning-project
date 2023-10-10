@@ -1,6 +1,7 @@
-const { boardSchema } = require('./schemas.js');
+const { boardSchema, commentSchema } = require('./schemas.js');
 const ExpressError = require('./utils/ExpressError.js');
 const Board = require('./models/board.js');
+const Comment = require('./models/comment.js');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()) {
@@ -36,4 +37,24 @@ module.exports.isAuthor = async (req, res, next) => {
         return res.redirect(`/boards/${id}`);
     }
     next();
+}
+
+module.exports.isCommentAuthor = async (req, res, next) => {
+    const { id, commentId } = req.params;
+    const comment = await Comment.findById(commentId);
+    if (!comment.author.equals(req.user._id)) {
+        req.flash('error', '삭제 권한이 없습니다.');
+        return res.redirect(`/boards/${id}`);
+    }
+    next();
+}
+
+module.exports.validateComment = (req, res, next) => {
+    const { error } = commentSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    } else {
+        next();
+    }
 }

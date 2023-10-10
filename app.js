@@ -13,6 +13,7 @@ const User = require('./models/user');
 const boardRoutes = require('./routes/boards');
 const lectureRoutes = require('./routes/lectures');
 const userRoutes = require('./routes/users');
+const commentRoutes = require('./routes/comments');
 
 mongoose.connect('mongodb://127.0.0.1:27017/online-learning');
 
@@ -53,6 +54,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req ,res, next) => {
+    console.log(req.session);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -61,6 +63,7 @@ app.use((req ,res, next) => {
 
 app.use('/', userRoutes);
 app.use('/boards', boardRoutes);
+app.use('/boards/:id/comments', commentRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');
