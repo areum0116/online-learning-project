@@ -2,6 +2,10 @@ const Board = require('../models/board');
 
 module.exports.index = async (req, res) => {
     const boards = await Board.find({});
+    // for(let board of boards) {
+    //     var time = new Date(board.updatedAt);
+    //     board.writtenTime = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
+    // }
     res.render('boards/index', { boards });
 }
 
@@ -12,6 +16,8 @@ module.exports.renderNewForm = (req, res) => {
 module.exports.createBoard = async (req, res, next) => {
     const board = new Board(req.body.board);
     board.author = req.user._id;
+    var time = new Date();
+    board.writtenTime = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
     await board.save();
     req.flash('success', '새로운 글 작성');
     res.redirect(`/boards/${board._id}`);
