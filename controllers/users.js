@@ -28,6 +28,7 @@ module.exports.renderLogin = (req, res) => {
 module.exports.login = (req, res) => {
     req.flash('success', '환영합니다.');
     const redirectUrl = res.locals.returnTo || '/boards';
+    delete req.session.returnTo;
     res.redirect(redirectUrl);
 }
 

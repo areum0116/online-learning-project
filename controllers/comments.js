@@ -7,7 +7,7 @@ module.exports.createComment = async (req, res) => {
     comment.author = req.user._id;
     board.comments.push(comment);
     await comment.save();
-    await Board.save();
+    await board.save();
     req.flash('success', '댓글 등록');
     res.redirect(`/boards/${board._id}`);
 }

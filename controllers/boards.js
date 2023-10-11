@@ -24,7 +24,12 @@ module.exports.createBoard = async (req, res, next) => {
 }
 
 module.exports.showBoard = async (req, res) => {
-    const board = await Board.findById(req.params.id).populate('author');
+    const board = await Board.findById(req.params.id).populate({
+        path: 'comments',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author');
     if (!board) {
         req.flash('error', '해당 글은 삭제되었거나 존재하지 않습니다.');
         return res.redirect('/boards');

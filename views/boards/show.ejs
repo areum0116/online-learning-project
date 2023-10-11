@@ -12,9 +12,9 @@
             </ul>
             <% if(currentUser && board.author.equals(currentUser._id)) { %>
             <div class="card-body">
-                <a class="card-link btn btn-info" href="/boards/<%=board._id%>/edit">Edit</a>
+                <a class="card-link btn btn-info" href="/boards/<%=board._id%>/edit">수정</a>
                 <form class="d-inline" action="/boards/<%=board._id%>?_method=DELETE" method="POST">
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger">삭제</button>
                 </form>
             </div>
             <% } %>
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-6 offset-3">
         <div id="map"></div>
 
         <% if(currentUser){ %>
