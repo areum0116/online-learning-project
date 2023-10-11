@@ -62,6 +62,7 @@ app.use((req ,res, next) => {
 });
 
 app.use('/', userRoutes);
+app.use('/lectures', lectureRoutes);
 app.use('/boards', boardRoutes);
 app.use('/boards/:id/comments', commentRoutes);
 
