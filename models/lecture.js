@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const LectureSchema = new Schema({
     title: String,
-    lecturer: String,
-    subject: String,
-    grade: Number
+    channel: String,
+    url: String,
+    img_url: String
 });
 
 module.exports = mongoose.model('Lecture', LectureSchema);

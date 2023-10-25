@@ -1,0 +1,32 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+<h1>모든 강의 확인</h1>
+
+<% for (let lecture of lectures){%>
+    <div class="card mb-3" >
+        <div class="row">
+            <div class="col-md-4">
+                <%if(lecture.img_url.length) {%>
+                <img class="img-fluid" alt="" src="<%=lecture.img_url%>">
+                <% }else {%>
+                <img class="img-fluid" alt=""
+                    src="">
+                <% } %>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><%= lecture.title %> </h5>
+    
+                    <p class="card-text"><%= lecture.channel %></p>
+                    <p class="card-text">
+                        <small class="text-muted"><%= lecture.url%></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }%>
+    
+
+</div>

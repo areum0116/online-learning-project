@@ -2,10 +2,6 @@ const Board = require('../models/board');
 
 module.exports.index = async (req, res) => {
     const boards = await Board.find({}).populate('author');
-    // for(let board of boards) {
-    //     var time = new Date(board.updatedAt);
-    //     board.writtenTime = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate();
-    // }
     res.render('boards/index', { boards });
 }
 
