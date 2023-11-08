@@ -1,3 +1,4 @@
-a = 1
-b = 2
-print(a+b)
+a = 'abcd'
+print(a)
+a = '"'+a+'"'
+print(a)
