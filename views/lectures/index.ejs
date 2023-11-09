@@ -16,12 +16,14 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title"><%= lecture.title %> </h5>
-    
-                    <p class="card-text"><%= lecture.channel %></p>
-                    <p class="card-text">
-                        <small class="text-muted"><%= lecture.url%></small>
+                    <p class="card-title">
+                    <a href="<%= lecture.url %>" target="_blank" class="stretched-link text-decoration-none link-dark fw-bold fs-5">
+                        <%= lecture.title %></a>
                     </p>
+                    <p class="card-text text-muted"><%= lecture.channel %></p>
+                    <!-- <p class="card-text">
+                        <small class="text-muted">lecture.url</small>
+                    </p> -->
                 </div>
             </div>
         </div>

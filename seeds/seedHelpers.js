@@ -68,9 +68,10 @@ for (const i in rows) {
         results.push(row_data);
     }
 }
-module.exports.results;
+
+module.exports = results;
 
 for (result of results) {
     // console.log(JSON.stringify(result, null, '  ').replace("\\r", "") ) 
-
+    // console.log(result.title)
 }
