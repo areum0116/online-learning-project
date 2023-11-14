@@ -7,10 +7,12 @@ const LectureSchema = new Schema({
     url: String,
     img_url: String,
     view_cnt: Number,
-    upload_date: Date,
-    likes: Number,
-    vid_length: Number,
-    subscribers: Number
+    upload_date: String,
+    description: String,
+    channel_url: String,
+    subscribers: Number,
+    total_vid: Number,
+    num: Number
 });
 
 module.exports = mongoose.model('Lecture', LectureSchema);

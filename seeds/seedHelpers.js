@@ -62,7 +62,7 @@ for (const i in rows) {
         let row_data = {};
         for (const index in columnTitle) {
             const title = columnTitle[index];
-            if (index === "1") row_data[title] = data[index].replaceAll('"', '');
+            if (index === "0") row_data[title] = data[index].replaceAll('"', '');
             else row_data[title] = data[index];
         }
         results.push(row_data);

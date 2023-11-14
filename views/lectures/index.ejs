@@ -7,12 +7,7 @@
     <div class="card mb-3" >
         <div class="row">
             <div class="col-md-4">
-                <%if(lecture.img_url.length) {%>
-                <img class="img-fluid" alt="" src="<%=lecture.img_url%>">
-                <% }else {%>
-                <img class="img-fluid" alt=""
-                    src="">
-                <% } %>
+                <img class="img-fluid" alt="thumbnail" src="<%=lecture.img_url%>">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -21,9 +16,12 @@
                         <%= lecture.title %></a>
                     </p>
                     <p class="card-text text-muted"><%= lecture.channel %></p>
-                    <!-- <p class="card-text">
-                        <small class="text-muted">lecture.url</small>
-                    </p> -->
+                    <p class="card-text">
+                        <small class="text-muted"><%= lecture.upload_date %></small> <br>
+                        <small class="text-muted"><%= lecture.description %></small> <br>
+                        <small class="text-muted"><%= lecture.subscribers %></small> <br>
+                        <small class="text-muted"><%= lecture.total_vid %></small>
+                    </p>
                 </div>
             </div>
         </div>
