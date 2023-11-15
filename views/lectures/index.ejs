@@ -1,32 +1,98 @@
 <% layout('layouts/boilerplate') %>
 
 <div class="container">
-<h1 class="mb-3">모든 강의 확인</h1>
+    <% switch (num) {
+         case 1: %>
+            <h2 class="mb-4"><b>전체</b> 강의 목록</h2>
+            <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
+                <a class="flex-sm-fill text-sm-center nav-link active" href="/lectures/">전체</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_view_cnt/">조회수</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_date">날짜</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_subscribers">구독자 수</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_vid_cnt">영상 수</a>
+            </nav>
+            <% break 
+         case 2: %>
+            <h3 class="mb-4"><b>조회수</b> 순 강의 목록</h3>
+            <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/">전체</a>
+                <a class="flex-sm-fill text-sm-center nav-link active" href="/lectures/index_sort_by_view_cnt/">조회수</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_date">날짜</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_subscribers">구독자 수</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_vid_cnt">영상 수</a>
+            </nav>
+            <% break 
+         case 3: %>
+            <h3 class="mb-4"><b>날짜</b> 순 강의 목록</h3>
+            <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/">전체</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_view_cnt/">조회수</a>
+                <a class="flex-sm-fill text-sm-center nav-link active" href="/lectures/index_sort_by_date">날짜</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_subscribers">구독자 수</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_vid_cnt">영상 수</a>
+            </nav>
+            <% break 
+         case 4: %>
+            <h3 class="mb-4"><b>구독자</b> 순 강의 목록</h3>
+            <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/">전체</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_view_cnt/">조회수</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_date">날짜</a>
+                <a class="flex-sm-fill text-sm-center nav-link active" href="/lectures/index_sort_by_subscribers">구독자 수</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_vid_cnt">영상 수</a>
+            </nav>
+            <% break 
+         case 5: %>
+            <h3 class="mb-4"><b>영상 개수</b> 순 강의 목록</h3>
+            <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/">전체</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_view_cnt/">조회수</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_date">날짜</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_subscribers">구독자 수</a>
+                <a class="flex-sm-fill text-sm-center nav-link active" href="/lectures/index_sort_by_vid_cnt">영상 수</a>
+            </nav>
+            <% break 
+     } %>
 
-<% for (let lecture of lectures){%>
-    <div class="card mb-3" >
-        <div class="row">
-            <div class="col-md-4">
-                <img class="img-fluid" alt="thumbnail" src="<%=lecture.img_url%>">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <p class="card-title">
-                    <a href="<%= lecture.url %>" target="_blank" class="stretched-link text-decoration-none link-dark fw-bold fs-5">
-                        <%= lecture.title %></a>
-                    </p>
-                    <p class="card-text text-muted"><%= lecture.channel %></p>
-                    <p class="card-text">
-                        <small class="text-muted"><%= lecture.upload_date %></small> <br>
-                        <small class="text-muted"><%= lecture.description %></small> <br>
-                        <small class="text-muted"><%= lecture.subscribers %></small> <br>
-                        <small class="text-muted"><%= lecture.total_vid %></small>
-                    </p>
+    <% for (let i=0; i < lectures.length; i++){%>
+        <% let num = lectures[i].num %>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-fluid" alt="thumbnail" src="<%=lectures[num].img_url%>">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-title">
+                            <a href="<%= lectures[num].url %>" target="_blank"
+                                class="text-decoration-none link-dark fw-bold fs-5">
+                                <%= lectures[num].title %>
+                            </a>
+                        </p>
+                        <p class="card-text">
+                            <%= lectures[num].channel %>
+                                <small class="text-muted"> (구독자 : <%= lectures[num].subscribers.toLocaleString('ko-KR') %> ,
+                                        영상 : <%= lectures[num].total_vid.toLocaleString('ko-KR') %>)</small>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%= lectures[num].description %>
+                            </small>
+                        </p>
+                        <p class="card-text">
+                            <small>게시일 : <%= lectures[num].upload_date %> / 조회수 : <%= lectures[num].view_cnt.toLocaleString('ko-KR') %></small>
+                        </p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="<%= lectures[num].url %>" target="_blank">
+                                <button class="btn btn-outline-success btn-sm">강의 시청</button>
+                            </a>
+                            <a href="<%= lectures[num].channel_url %>" target="_blank">
+                                <button class="btn btn-outline-warning btn-sm">채널 확인</button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <% }%>
-    
-
+        <% }%>
 </div>

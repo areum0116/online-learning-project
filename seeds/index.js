@@ -28,7 +28,7 @@ const seedDB = async() => {
             channel_url: lectures[i].channel_url,
             subscribers: lectures[i].subscribers,
             total_vid: lectures[i].total_vid,
-            
+            num: lectures[i]['num\r']
         })
         await lect.save();
     }
