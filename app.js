@@ -70,6 +70,10 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+app.get('/my-page', (req, res) => {
+    res.render('my');
+})
+
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404));
 });

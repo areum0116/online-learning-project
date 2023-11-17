@@ -23,14 +23,47 @@ router.get('/index_sort_by_view_cnt', async (req, res) => {
     });
     for (var i=0; i<lectures.length; i++) {
         lectures[i].num = sortable[i][0];
-    }
+    } 
     res.render('lectures/index', { lectures, num });
 })
 
 router.get('/index_sort_by_date', async (req, res) => {
     num = 3;
     const lectures = await Lecture.find({});
+    let sortable = [];
 
+    for (var i = 0; i < lectures.length; i++) {
+        let date = lectures[i].upload_date.split(' '); let n, result, whatAgo;
+        if(date[0] == 'Streamed') {
+            n = parseInt(date[1]);
+            whatAgo = date[2];
+        } else {
+            n = parseInt(date[0]);
+            whatAgo = date[1];
+        } 
+        result = n;
+
+        if(whatAgo === 'minute' || whatAgo === 'minutes') {
+            result = n * 60;
+        } else if(whatAgo === 'hour' || whatAgo === 'hours') {
+            result = n * 60 * 60;
+        } else if(whatAgo === 'day' || whatAgo === 'days') {
+            result = n * 60 * 60 * 24;
+        } else if(whatAgo === 'week' || whatAgo === 'weeks') {
+            result = n * 60 * 60 * 24 * 7;
+        } else if(whatAgo === 'month' || whatAgo === 'months') {
+            result = n * 60 * 60 * 24 * 30;
+        } else if(whatAgo === 'year' || whatAgo === 'years') {
+            result = n * 60 * 60 * 24 * 365;
+        }
+        sortable.push([lectures[i].num, result]);
+    }
+    sortable.sort(function(a, b) {
+        return a[1] - b[1];
+    });
+    for (var i = 0; i < lectures.length; i++) {
+        lectures[i].num = sortable[i][0];
+    }
     res.render('lectures/index', { lectures, num });
 })
 

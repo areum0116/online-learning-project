@@ -13,7 +13,7 @@
             </nav>
             <% break 
          case 2: %>
-            <h3 class="mb-4"><b>조회수</b> 순 강의 목록</h3>
+            <h2 class="mb-4"><b>조회수</b> 순 강의 목록</h2>
             <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
                 <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/">전체</a>
                 <a class="flex-sm-fill text-sm-center nav-link active" href="/lectures/index_sort_by_view_cnt/">조회수</a>
@@ -23,7 +23,7 @@
             </nav>
             <% break 
          case 3: %>
-            <h3 class="mb-4"><b>날짜</b> 순 강의 목록</h3>
+            <h2 class="mb-4"><b>날짜</b> 순 강의 목록</h2>
             <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
                 <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/">전체</a>
                 <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_view_cnt/">조회수</a>
@@ -33,7 +33,7 @@
             </nav>
             <% break 
          case 4: %>
-            <h3 class="mb-4"><b>구독자</b> 순 강의 목록</h3>
+            <h2 class="mb-4"><b>구독자</b> 순 강의 목록</h2>
             <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
                 <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/">전체</a>
                 <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_view_cnt/">조회수</a>
@@ -43,7 +43,7 @@
             </nav>
             <% break 
          case 5: %>
-            <h3 class="mb-4"><b>영상 개수</b> 순 강의 목록</h3>
+            <h2 class="mb-4"><b>영상 개수</b> 순 강의 목록</h2>
             <nav class="nav nav-pills flex-column flex-sm-row mb-4 border border-primary rounded-3">
                 <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/">전체</a>
                 <a class="flex-sm-fill text-sm-center nav-link" href="/lectures/index_sort_by_view_cnt/">조회수</a>
@@ -71,8 +71,8 @@
                         </p>
                         <p class="card-text">
                             <%= lectures[num].channel %>
-                                <small class="text-muted"> (구독자 : <%= lectures[num].subscribers.toLocaleString('ko-KR') %> ,
-                                        영상 : <%= lectures[num].total_vid.toLocaleString('ko-KR') %>)</small>
+                                <small class="text-muted"> (구독자 : <%= lectures[num].subscribers.toLocaleString('ko-KR') %>명 |
+                                        영상 : <%= lectures[num].total_vid.toLocaleString('ko-KR') %>개)</small>
                         </p>
                         <p class="card-text">
                             <small class="text-muted">
