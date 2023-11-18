@@ -70,8 +70,3 @@ for (const i in rows) {
 }
 
 module.exports = results;
-
-for (result of results) {
-    // console.log(JSON.stringify(result, null, '  ').replace("\\r", "") ) 
-    // console.log(result.title)
-}
