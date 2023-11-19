@@ -54,6 +54,10 @@
             <% break 
      } %>
 
+    좋아요: <p id="result1"> </p>
+    플리: <p id="result2"> </p>
+    봄: <p id="result3"> </p>
+
     <% for (let i=0; i < lectures.length; i++){%>
         <% let num = lectures[i].num %>
         <div class="card mb-3">
@@ -83,25 +87,40 @@
                             <small>게시일 : <%= lectures[num].upload_date %> / 조회수 : <%= lectures[num].view_cnt.toLocaleString('ko-KR') %></small>
                         </p>
 
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <div class="d-grid gap-2 d-md-flex">
                             <a href="<%= lectures[num].url %>" target="_blank">
                                 <button class="btn btn-outline-success btn-sm">강의 시청</button>
                             </a>
                             <a href="<%= lectures[num].channel_url %>" target="_blank">
                                 <button class="btn btn-outline-warning btn-sm">채널 확인</button>
                             </a>
-                            
-                            <!--<input type="checkbox" class="btn-check" id="like-btn-<%=i%>" autocomplete="off">
-                            <label class="btn btn-outline-danger" for="like-btn-<%=i%>">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                                </svg>
-                            </label>-->
-                              
+                            <div class="ms-auto">
+                                <% if(currentUser) { %>
+                                <input type="checkbox" class="btn-check btn-sm" id="like-btn-<%=i%>" value="<%=lectures[num]._id%>" onclick="is_like_btn_checked(this, '<%=currentUser._id%>')">
+                                <label class="btn btn-outline-danger btn-sm" for="like-btn-<%=i%>">
+                                    <i class="bi bi-heart"></i>
+                                </label>
+
+                                <input type="checkbox" class="btn-check btn-sm" id="playlist-btn-<%=i%>" value="<%=lectures[num]._id%>" onclick="is_playlist_btn_checked(this, '<%=currentUser._id%>')">
+                                <label class="btn btn-outline-primary btn-sm" for="playlist-btn-<%=i%>">
+                                    <i class="bi bi-plus-circle"></i>
+                                </label>
+
+                                <input type="checkbox" class="btn-check btn-sm" id="watched-btn-<%=i%>" onclick="is_watched_btn_checked('<%=i%>', '<%=lectures[num]._id%>', '<%=currentUser._id%>')">
+                                <label class="btn btn-outline-success btn-sm" for="watched-btn-<%=i%>">
+                                    <i class="bi bi-check-circle"></i>
+                                </label>
+
+                                <!-- <pre id='result1<%=i%>'> </pre> <pre id='result2<%=i%>'> </pre> <pre id='result3<%=i%>'> </pre> -->
+                                  
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <% }%>
+    <% }%>
 </div>
+
+<script src="/javascripts/checkBox.js"></script>
