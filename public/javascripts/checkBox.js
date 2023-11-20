@@ -9,8 +9,7 @@ async function is_like_btn_checked(like_box, user_id) {
     if(like_box.checked) {
         user.liked_lectures.push(lecture);
         await user.save();
-        // req.flash('success', '좋아요가 표시된 영상에 추가하였습니다.');
-        // console.log("좋아요 추가")
+        req.flash('success', '좋아요가 표시된 영상에 추가하였습니다.');
     } 
     else {
         const index = user.liked_lectures.indexOf(lecture_id);
@@ -18,13 +17,13 @@ async function is_like_btn_checked(like_box, user_id) {
             user.liked_lectures.splice(index, 1);
             await user.save();
         }
-        // req.flash('error', '좋아요가 표시된 영상에서 삭제되었습니다.');
-        // console.log("좋아요 뺌")
+        req.flash('error', '좋아요가 표시된 영상에서 삭제되었습니다.');
     }
     
 
     document.getElementById(`result1`).innerText = user_id;
 }
+
 
 async function is_playlist_btn_checked(playlist_box, user_id) {
     var txt = '';
@@ -43,6 +42,8 @@ async function is_playlist_btn_checked(playlist_box, user_id) {
 
     document.getElementById(`result2`).innerText = txt;
 }
+
+
 
 async function is_watched_btn_checked(n, lecture_id, user_id) {
     const checkbox = document.getElementById(`watched-btn-${n}`);

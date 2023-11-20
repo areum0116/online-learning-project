@@ -1,17 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
+const { isLoggedIn } = require('../middleware');
 
 const Lecture = require('../models/lecture');
+const User = require('../models/user');
 let num = 1;
 
-router.get('/', async (req, res) => {
+router.get('/', catchAsync(async (req, res) => {
     num = 1;
     const lectures = await Lecture.find({});
     res.render('lectures/index', { lectures, num });
-})
+}))
 
-router.get('/index_sort_by_view_cnt', async (req, res) => {
+router.get('/index_sort_by_view_cnt', catchAsync(async (req, res) => {
     num = 2;
     const lectures = await Lecture.find({});
     let sortable = [];
@@ -25,9 +27,9 @@ router.get('/index_sort_by_view_cnt', async (req, res) => {
         lectures[i].num = sortable[i][0];
     } 
     res.render('lectures/index', { lectures, num });
-})
+}))
 
-router.get('/index_sort_by_date', async (req, res) => {
+router.get('/index_sort_by_date', catchAsync(async (req, res) => {
     num = 3;
     const lectures = await Lecture.find({});
     let sortable = [];
@@ -65,9 +67,9 @@ router.get('/index_sort_by_date', async (req, res) => {
         lectures[i].num = sortable[i][0];
     }
     res.render('lectures/index', { lectures, num });
-})
+}))
 
-router.get('/index_sort_by_subscribers', async (req, res) => {
+router.get('/index_sort_by_subscribers', catchAsync(async (req, res) => {
     num = 4;
     const lectures = await Lecture.find({});
     let sortable = [];
@@ -81,9 +83,9 @@ router.get('/index_sort_by_subscribers', async (req, res) => {
         lectures[i].num = sortable[i][0];
     }
     res.render('lectures/index', { lectures, num });
-})
+}))
 
-router.get('/index_sort_by_vid_cnt', async (req, res) => {
+router.get('/index_sort_by_vid_cnt', catchAsync(async (req, res) => {
     num = 5;
     const lectures = await Lecture.find({});
     let sortable = [];
@@ -97,6 +99,60 @@ router.get('/index_sort_by_vid_cnt', async (req, res) => {
         lectures[i].num = sortable[i][0];
     }
     res.render('lectures/index', { lectures, num });
-})
+}))
+
+router.get('/:lectureId/like', isLoggedIn, catchAsync(async (req, res) => {
+    const { lectureId } = req.params;
+    const lecture = await Lecture.findById(lectureId);
+    const user = await User.findById(req.user._id);
+    user.liked_lectures.push(lecture);
+    await user.save();
+    req.flash('success', '좋아요가 표시된 영상에 추가');
+    res.redirect('/lectures');
+}))
+router.get('/:like_index/unlike', isLoggedIn, catchAsync(async (req ,res) => {
+    const { like_index } = req.params;
+    const user = await User.findById(req.user._id);
+    user.liked_lectures.splice(like_index, 1);
+    await user.save();
+    req.flash('error', '좋아요 목록에서 제거');
+    res.redirect('/lectures');
+}))
+
+router.get('/:lectureId/playlist', isLoggedIn, catchAsync(async (req, res) => {
+    const { lectureId } = req.params;
+    const lecture = await Lecture.findById(lectureId);
+    const user = await User.findById(req.user._id);
+    user.playlist_lectures.push(lecture);
+    await user.save();
+    req.flash('success', '플레이리스트에 추가');
+    res.redirect('/lectures');
+}))
+router.get('/:playlist_index/unplaylist', isLoggedIn, catchAsync(async (req ,res) => {
+    const { playlist_index } = req.params;
+    const user = await User.findById(req.user._id);
+    user.playlist_lectures.splice(playlist_index, 1);
+    await user.save();
+    req.flash('error', '플레이리스트에서 제거');
+    res.redirect('/lectures');
+}))
+
+router.get('/:lectureId/watched', isLoggedIn, catchAsync(async (req, res) => {
+    const { lectureId } = req.params;
+    const lecture = await Lecture.findById(lectureId);
+    const user = await User.findById(req.user._id);
+    user.watched_lectures.push(lecture);
+    await user.save();
+    req.flash('success', '시청한 영상 목록에 추가');
+    res.redirect('/lectures');
+}))
+router.get('/:watched_index/unwatched', isLoggedIn, catchAsync(async (req ,res) => {
+    const { watched_index } = req.params;
+    const user = await User.findById(req.user._id);
+    user.watched_lectures.splice(watched_index, 1);
+    await user.save();
+    req.flash('error', '시청한 영상 목록에서 제거');
+    res.redirect('/lectures');
+}))
 
 module.exports = router;

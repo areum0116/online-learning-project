@@ -54,10 +54,6 @@
             <% break 
      } %>
 
-    좋아요: <p id="result1"> </p>
-    플리: <p id="result2"> </p>
-    봄: <p id="result3"> </p>
-
     <% for (let i=0; i < lectures.length; i++){%>
         <% let num = lectures[i].num %>
         <div class="card mb-3">
@@ -94,26 +90,53 @@
                             <a href="<%= lectures[num].channel_url %>" target="_blank">
                                 <button class="btn btn-outline-warning btn-sm">채널 확인</button>
                             </a>
+
                             <div class="ms-auto">
-                                <% if(currentUser) { %>
-                                <input type="checkbox" class="btn-check btn-sm" id="like-btn-<%=i%>" value="<%=lectures[num]._id%>" onclick="is_like_btn_checked(this, '<%=currentUser._id%>')">
-                                <label class="btn btn-outline-danger btn-sm" for="like-btn-<%=i%>">
-                                    <i class="bi bi-heart"></i>
-                                </label>
+                                <% if(currentUser) {
+                                    var lect_id = lectures[num]._id 
+                                    var like_index = currentUser.liked_lectures.indexOf(lect_id)
+                                    var playlist_index = currentUser.playlist_lectures.indexOf(lect_id)
+                                    var watched_index = currentUser.watched_lectures.indexOf(lect_id)
 
-                                <input type="checkbox" class="btn-check btn-sm" id="playlist-btn-<%=i%>" value="<%=lectures[num]._id%>" onclick="is_playlist_btn_checked(this, '<%=currentUser._id%>')">
-                                <label class="btn btn-outline-primary btn-sm" for="playlist-btn-<%=i%>">
-                                    <i class="bi bi-plus-circle"></i>
-                                </label>
+                                    if(like_index > -1){ %>
+                                        <input type="checkbox" class="btn-check btn-sm" id="like-btn-<%=i%>" checked onclick='window.location.assign("/lectures/<%=like_index%>/unlike")'/>
+                                        <label class="btn btn-outline-danger btn-sm" for="like-btn-<%=i%>">
+                                            <i class="bi bi-heart"></i>
+                                        </label>
+                                    <% }
+                                    else { %>
+                                    <input type="checkbox" class="btn-check btn-sm" id="like-btn-<%=i%>" onclick='window.location.assign("/lectures/<%=lect_id%>/like")'/>
+                                    <label class="btn btn-outline-danger btn-sm" for="like-btn-<%=i%>">
+                                        <i class="bi bi-heart"></i>
+                                    </label>
+                                    <% }
 
-                                <input type="checkbox" class="btn-check btn-sm" id="watched-btn-<%=i%>" onclick="is_watched_btn_checked('<%=i%>', '<%=lectures[num]._id%>', '<%=currentUser._id%>')">
-                                <label class="btn btn-outline-success btn-sm" for="watched-btn-<%=i%>">
-                                    <i class="bi bi-check-circle"></i>
-                                </label>
+                                    if(playlist_index > -1) { %>
+                                        <input type="checkbox" class="btn-check btn-sm" id="playlist-btn-<%=i%>" checked onclick='window.location.assign("/lectures/<%=playlist_index%>/unplaylist")'/>
+                                        <label class="btn btn-outline-primary btn-sm" for="playlist-btn-<%=i%>">
+                                        <i class="bi bi-plus-circle"></i>
+                                        </label>
+                                    <% }
+                                    else { %>
+                                        <input type="checkbox" class="btn-check btn-sm" id="playlist-btn-<%=i%>" onclick='window.location.assign("/lectures/<%=lect_id%>/playlist")'/>
+                                        <label class="btn btn-outline-primary btn-sm" for="playlist-btn-<%=i%>">
+                                        <i class="bi bi-plus-circle"></i>
+                                        </label>
+                                    <% }
 
-                                <!-- <pre id='result1<%=i%>'> </pre> <pre id='result2<%=i%>'> </pre> <pre id='result3<%=i%>'> </pre> -->
-                                  
-                                <% } %>
+                                    if(watched_index > -1) { %>
+                                        <input type="checkbox" class="btn-check btn-sm" id="watched-btn-<%=i%>" checked onclick='window.location.assign("/lectures/<%=watched_index%>/unwatched")'/>
+                                        <label class="btn btn-outline-success btn-sm" for="watched-btn-<%=i%>">
+                                        <i class="bi bi-check-circle"></i>
+                                        </label>
+                                    <% }
+                                    else { %>
+                                        <input type="checkbox" class="btn-check btn-sm" id="watched-btn-<%=i%>" onclick='window.location.assign("/lectures/<%=lect_id%>/watched")'/>
+                                        <label class="btn btn-outline-success btn-sm" for="watched-btn-<%=i%>">
+                                        <i class="bi bi-check-circle"></i>
+                                        </label>
+                                    <% }
+                                } %>
                             </div>
                         </div>
                     </div>
@@ -122,5 +145,3 @@
         </div>
     <% }%>
 </div>
-
-<script src="/javascripts/checkBox.js"></script>
