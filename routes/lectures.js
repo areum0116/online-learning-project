@@ -107,7 +107,7 @@ router.get('/:lectureId/like', isLoggedIn, catchAsync(async (req, res) => {
     const user = await User.findById(req.user._id);
     user.liked_lectures.push(lecture);
     await user.save();
-    req.flash('success', '좋아요가 표시된 영상에 추가');
+    req.flash('success', '찜한 영상 목록에 추가');
     res.redirect('/lectures');
 }))
 router.get('/:like_index/unlike', isLoggedIn, catchAsync(async (req ,res) => {
@@ -115,7 +115,7 @@ router.get('/:like_index/unlike', isLoggedIn, catchAsync(async (req ,res) => {
     const user = await User.findById(req.user._id);
     user.liked_lectures.splice(like_index, 1);
     await user.save();
-    req.flash('error', '좋아요 목록에서 제거');
+    req.flash('error', '찜한 목록에서 제거');
     res.redirect('/lectures');
 }))
 

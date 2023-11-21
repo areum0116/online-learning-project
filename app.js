@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
+const { isLoggedIn } = require('./middleware');
 
 const boardRoutes = require('./routes/boards');
 const lectureRoutes = require('./routes/lectures');
@@ -70,8 +71,9 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/my-page', (req, res) => {
-    res.render('my');
+app.get('/my-page', isLoggedIn, async(req, res) => {
+    const user = await User.findById(req.user._id).populate('liked_lectures').populate('playlist_lectures').populate('watched_lectures');
+    res.render('my', { user });
 })
 
 app.all('*', (req, res, next) => {

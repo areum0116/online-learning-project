@@ -70,9 +70,11 @@
                             </a>
                         </p>
                         <p class="card-text">
-                            <%= lectures[num].channel %>
-                                <small class="text-muted"> (구독자 : <%= lectures[num].subscribers.toLocaleString('ko-KR') %>명 |
-                                        영상 : <%= lectures[num].total_vid.toLocaleString('ko-KR') %>개)</small>
+                            <a href="<%= lectures[num].channel_url %>" target="_blank" class="text-decoration-none link-dark">
+                                <%= lectures[num].channel %>
+                            </a>
+                            <small class="text-muted"> (구독자 : <%= lectures[num].subscribers.toLocaleString('ko-KR') %>명 |
+                                    영상 : <%= lectures[num].total_vid.toLocaleString('ko-KR') %>개)</small>
                         </p>
                         <p class="card-text">
                             <small class="text-muted">

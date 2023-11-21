@@ -1,7 +1,155 @@
 <% layout('layouts/boilerplate')%>
 
-<h2 class="mb-4">마이 페이지</h2>
+<h2 class="mb-4 fw-bold">마이 페이지</h2>
 
-<%= currentUser.liked_lectures %>
-<%= currentUser.playlist_lectures %>
-<%= currentUser.watched_lectures %>
+<div class="border border-4 border-primary p-5 mb-5 border-opacity-50 rounded-5">
+    <p class="fs-4 mb-4 fw-semibold">목표 달성 현황</p>
+
+    <% let achievement_percentage = 100; %>
+    <% if(!user.playlist_lectures.length && !user.watched_lectures.length) { %>
+        <p class="fw-light">
+            플레이 리스트에 원하는 강좌를 등록해 주세요.
+            <a href="/lectures"><i class="bi bi-plus-square"></i></a>
+        </p>
+    <%}
+    
+    else{
+        if(user.playlist_lectures.length) {
+            achievement_percentage = (user.watched_lectures.length / user.playlist_lectures.length) * 100;
+            if(achievement_percentage > 100) achievement_percentage = 100;
+            achievement_percentage = parseInt(achievement_percentage);
+        } %>
+    
+        <div class="progress" role="progressbar" style="height: 20px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" id="goal_bar"><%= achievement_percentage %>%</div>
+        </div>
+    
+        <%var left_vid = user.playlist_lectures.length - user.watched_lectures.length
+        if(left_vid < 0) left_vid = 0;%>
+    
+        <p class="small fst-italic">남은 영상 개수 : <%= left_vid %></p>
+    <%}%>
+</div>
+
+
+<div>
+    <p class="fs-4 pb-4 border-bottom border-2 fw-semibold">나의 수강 현황</p>
+
+    <p class="pb-2 px-3 fs-5 d-flex justify-content-evenly">
+        <a class="text-decoration-none link-dark" data-bs-toggle="collapse" href="#playlist">
+            수강중인 강좌 : <%= user.playlist_lectures.length %>개
+        </a> |
+        <a class="text-decoration-none link-dark" data-bs-toggle="collapse" href="#watched">
+            수강완료 강좌 : <%= user.watched_lectures.length %>개
+        </a> |
+        <a class="text-decoration-none link-dark" data-bs-toggle="collapse" href="#like">
+            찜한 강좌 : <%= user.liked_lectures.length %>개
+        </a>
+    </p>
+    
+    <div class="collapse" id="playlist">
+        <div class="card card-body">
+            <% for(let i = 0; i < user.playlist_lectures.length; i++) { %>
+            <div class="mb-2 border border-primary border-opacity-25">
+                <div class="row">
+                    <div class="col-md-4"><img src="<%=user.playlist_lectures[i].img_url%>" class="img-thumbnail" alt="thumbnail"></div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-title">
+                                <a href="<%= user.playlist_lectures[i].url %>" target="_blank"
+                                    class="text-decoration-none link-dark fw-bold fs-5">
+                                    <%= user.playlist_lectures[i].title %>
+                                </a>
+                            </p>
+                            <p class="card-text">
+                                <a href="<%= user.playlist_lectures[i].channel_url %>" target="_blank" class="text-decoration-none link-dark">
+                                    <%= user.playlist_lectures[i].channel %>
+                                </a>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= user.playlist_lectures[i].description %>
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <a href="/lectures" class="d-flex justify-content-center"><i class="bi bi-plus-square" style="font-size: 30px;"></i></a>
+        </div>
+    </div>
+    <div class="collapse" id="watched">
+        <div class="card card-body">
+            <% for(let i = 0; i < user.watched_lectures.length; i++) { %>
+            <div class="mb-2 border border-success border-opacity-25">
+                <div class="row">
+                    <div class="col-md-4"><img src="<%=user.watched_lectures[i].img_url%>" class="img-thumbnail" alt="thumbnail"></div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-title">
+                                <a href="<%= user.watched_lectures[i].url %>" target="_blank"
+                                    class="text-decoration-none link-dark fw-bold fs-5">
+                                    <%= user.watched_lectures[i].title %>
+                                </a>
+                            </p>
+                            <p class="card-text">
+                                <a href="<%= user.watched_lectures[i].channel_url %>" target="_blank" class="text-decoration-none link-dark">
+                                    <%= user.watched_lectures[i].channel %>
+                                </a>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= user.watched_lectures[i].description %>
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <a href="/lectures" class="d-flex justify-content-center"><i class="bi bi-plus-square" style="font-size: 30px; color: green;"></i></a>
+        </div>
+    </div>
+    <div class="collapse" id="like">
+        <div class="card card-body">
+            <% for(let i = 0; i < user.liked_lectures.length; i++) { %>
+            <div class="mb-2 border border-danger border-opacity-25">
+                <div class="row">
+                    <div class="col-md-4"><img src="<%=user.liked_lectures[i].img_url%>" class="img-thumbnail" alt="thumbnail"></div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-title">
+                                <a href="<%= user.liked_lectures[i].url %>" target="_blank"
+                                    class="text-decoration-none link-dark fw-bold fs-5">
+                                    <%= user.liked_lectures[i].title %>
+                                </a>
+                            </p>
+                            <p class="card-text">
+                                <a href="<%= user.liked_lectures[i].channel_url %>" target="_blank" class="text-decoration-none link-dark">
+                                    <%= user.liked_lectures[i].channel %>
+                                </a>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= user.liked_lectures[i].description %>
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <a href="/lectures" class="d-flex justify-content-center"><i class="bi bi-plus-square" style="font-size: 30px; color: rgba(255, 0, 0, 0.699);"></i></a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    var elem = document.getElementById("goal_bar");
+    var width = "<%=achievement_percentage%>";
+    elem.style.width = width + '%';
+</script>

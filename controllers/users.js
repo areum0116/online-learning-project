@@ -12,7 +12,7 @@ module.exports.register = async (req, res, next) => {
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', '환영합니다.');
-            res.redirect('/boards');
+            res.redirect('/lectures');
         })
     } catch (e) {
         req.flash('error', e.message);
@@ -27,7 +27,7 @@ module.exports.renderLogin = (req, res) => {
 
 module.exports.login = (req, res) => {
     req.flash('success', '환영합니다.');
-    const redirectUrl = res.locals.returnTo || '/boards';
+    const redirectUrl = res.locals.returnTo || '/lectures';
     delete req.session.returnTo;
     res.redirect(redirectUrl);
 }
@@ -38,6 +38,6 @@ module.exports.logout = (req, res) => {
             return next(err);
         }
         req.flash('success', 'Goodbye.');
-        res.redirect('/boards');
+        res.redirect('/lectures');
     });
 }
