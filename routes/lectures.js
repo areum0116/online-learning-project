@@ -101,6 +101,29 @@ router.get('/index_sort_by_vid_cnt', catchAsync(async (req, res) => {
     res.render('lectures/index', { lectures, num });
 }))
 
+router.get('/index_sort_by_alphabet', catchAsync(async (req, res) => {
+    num = 6;
+    const lectures = await Lecture.find({});
+    let sortable = [];
+    for (var i=0; i<lectures.length; i++) {
+        sortable.push([lectures[i].num, lectures[i].title]);
+    }
+    sortable.sort(function(a, b) {
+        if(a[1] < b[1]){
+            return -1;
+        }
+        if(a[1] > b[1]){
+            return 1;
+        }
+        else{return 0;}
+    });
+    for (var i=0; i<lectures.length; i++) {
+        lectures[i].num = sortable[i][0];
+    }
+    res.render('lectures/index', { lectures, num });
+}))
+
+
 router.get('/:lectureId/like', isLoggedIn, catchAsync(async (req, res) => {
     const { lectureId } = req.params;
     const lecture = await Lecture.findById(lectureId);

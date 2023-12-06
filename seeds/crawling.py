@@ -23,7 +23,7 @@ def from_string_to_num(str):
     return str
 
 # 스크롤을 어디까지 내리는지 기준    
-finish_line = 500
+finish_line = 40000
 
 browser = webdriver.Chrome() 
 browser.maximize_window()
@@ -104,16 +104,19 @@ ch_url = list(ch_url.items())
 ch_info = {}
 
 for url in ch_url:
-    browser.get(url[1])
-    time.sleep(2)
-    soup = BeautifulSoup(browser.page_source, 'lxml')
-    temp = soup.find_all("yt-formatted-string", attrs={"class", 'style-scope ytd-c4-tabbed-header-renderer'})
-    sub_num = temp[2].get_text().split(' ')[0]
-    sub_num = from_string_to_num(sub_num)
-    tot_vid = temp[3].span.get_text()
-    tot_vid = from_string_to_num(tot_vid)
-    print(sub_num, ',',tot_vid)
-    ch_info[url[0]] = [sub_num, tot_vid]
+    try:
+        browser.get(url[1])
+        time.sleep(2)
+        soup = BeautifulSoup(browser.page_source, 'lxml')
+        temp = soup.find_all("yt-formatted-string", attrs={"class", 'style-scope ytd-c4-tabbed-header-renderer'})
+        sub_num = temp[2].get_text().split(' ')[0]
+        sub_num = from_string_to_num(sub_num)
+        tot_vid = temp[3].span.get_text()
+        tot_vid = from_string_to_num(tot_vid)
+        print(sub_num, ',',tot_vid)
+        ch_info[url[0]] = [sub_num, tot_vid]
+    except Exception as e :
+        print('error!', e)
 
 for i in range(len(df)):
     df[i].append(ch_info[df[i][1]][0])
