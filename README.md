@@ -1,2 +1,2 @@
 # online-learning-project
-졸업 웹 프로젝트
+온라인 학습 프로젝트
